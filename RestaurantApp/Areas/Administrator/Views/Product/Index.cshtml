@@ -1,0 +1,69 @@
+﻿@model IEnumerable<ProductViewModel>
+
+@{
+	ViewData["Title"] = "Menu";
+}
+
+<section id="menu" class="menu section-bg">
+	<div class="container">
+		<div class="section-title mt-5 pt-5">
+			<h2>Menu</h2>
+			<p>Check Our Tasty Menu</p>
+		</div>
+
+		@if (TempData["Error"] != null)
+		{
+			<div id="message" class="customAlertMessage alert alert-danger text-center mt-5">@TempData["Error"]</div>
+		}
+
+		<div class="col-lg-12 d-flex justify-content-center">
+			<ul id="menu-flters">
+				<li>
+					<a asp-area="Administrator" asp-controller="Product" asp-action="Index">Show All</a>
+				</li>
+
+				@foreach (var category in ViewBag.Categories)
+				{
+					<li>
+						<a asp-area="Administrator" asp-controller="Product" asp-action="Index" asp-route-category="@category.Name">@category.Name</a>
+					</li>
+				}
+			</ul>
+		</div>
+
+		<div>
+			<a asp-area="Administrator" asp-controller="Product" asp-action="Add" >Add New Product</a>
+		</div>
+
+		<div class="row menu-container">
+			@foreach (var item in Model)
+			{
+				<div class="col-lg-6 menu-item">
+					<img src="@Url.Content(item.Image.StartsWith("https") ? item.Image : $"~/{item.Image}")" class="menu-img" alt="">
+					<div class="menu-content">
+						<a href="#">@item.Name</a>
+						<span>$@item.Price</span>
+					</div>
+					<div class="menu-ingredients">
+						@item.Description
+					</div>
+					<div class="d-flex justify-content-end">
+						<a asp-area="Administrator" asp-controller="Product" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-light btn-sm me-2">Edit</a>
+						<form method="post">
+							<input type="submit" asp-area="Administrator" asp-controller="Product" asp-action="Remove" asp-route-id="@item.Id" onclick="return confirmRemove('@item.Name')" class="btn btn-light btn-sm" value="Remove" />
+						</form>
+					</div>
+				</div>
+			}
+		</div>
+	</div>
+</section>
+
+
+@section Scripts {
+	<script>
+		function confirmRemove(name) {
+			return confirm('Are you sure you want to remove ' + name + '?');
+		}
+	</script>
+}

@@ -1,0 +1,61 @@
+﻿@model IEnumerable<EventViewModel>
+
+@{
+	ViewData["Title"] = "Home Page";
+	IEnumerable<int>? eventsIds = ViewBag.EventsIds;
+}
+
+<section id="hero" class="d-flex align-items-center">
+	<div class="container position-relative text-center text-lg-start aos-init aos-animate" data-aos="zoom-in" data-aos-delay="100">
+		<div class="row">
+			<div class="col-lg-8">
+				<h1>Welcome to <span>Flavor Haven</span></h1>
+				<h2>Expertly crafting culinary delights for over 19 years!</h2>
+
+				<div class="btns">
+					<a asp-area="" asp-controller="Menu" asp-action="Index" class="btn-menu animated fadeInUp scrollto">Order Now</a>
+					<a asp-area="" asp-controller="Reservation" asp-action="Add" class="btn-book animated fadeInUp scrollto">Book a Table</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<main id="main">
+	<!-- ======= Events Section ======= -->
+	<section id="events" class="events">
+		<div class="container aos-init aos-animate" data-aos="fade-up">
+
+			<div class="section-title">
+				<h2>Events</h2>
+				<p>Organize Your Events in our Restaurant</p>
+			</div>
+			<div class="why-us">
+				<div class="container aos-init aos-animate" data-aos="fade-up">
+					<div class="row">
+						@foreach (var item in Model)
+						{
+							<div class="col-lg-4 mt-4 mt-lg-4">
+								<div class="box aos-init aos-animate" data-aos="zoom-in" data-aos-delay="100">
+									<span>@item.StartEvent.ToString("dd.MM.yy HH:mm")</span>
+									<h4>@item.Title</h4>
+									<p>@item.Description</p>
+									<div class="d-flex justify-content-end mt-2">
+										@if (eventsIds != null && eventsIds.Contains(item.Id))
+										{
+											<a asp-area="" asp-controller="Reservation" asp-action="Index" class="btn btn-sm btn-light">Menage Reservation</a>
+										}
+										else
+										{
+											<a asp-area="" asp-controller="Reservation" asp-action="Add" asp-route-id="@item.Id" class="btn btn-sm btn-light">Book a table</a>
+										}
+									</div>
+								</div>
+							</div>
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</main>

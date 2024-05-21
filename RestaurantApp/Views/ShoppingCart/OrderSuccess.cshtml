@@ -1,0 +1,41 @@
+﻿@model UserDeliveryInfo
+
+@{
+    ViewData["Title"] = "Order Success";
+}
+
+<div id="loading" class="loading">
+    <div class="spinner-border text-light" role="status">
+    </div>
+    <span class="p-1">Loading...</span>
+</div>
+
+<div class="container mt-5 pt-5 mb-5 text-center">
+    <div class="alert alert-success customAlertMessage mt-5">@TempData["OrderSuccess"]</div>
+    <div class="mt-5">
+        <h2 class="pt-5">Thank you for your order!</h2>
+        <ul class="list-unstyled">
+            <li>Name: <span class="fw-bold">@Model.Name</span></li>
+            <li>Address: <span class="fw-bold">@Model.Address</span></li>
+            <li>Posral Code: <span class="fw-bold">@Model.PostalCode</span></li>
+            <li>Price: <span class="fw-bold">&euro; @Model.Price</span></li>
+            <li>
+                <p>Your order has been received. We'll let you know as soon as it's on its way to you!</p>
+            </li>
+        </ul>
+        
+        <div class="delivery-animation">
+            <img src="~/img/delivery.svg" alt="Delivery Truck" class="delivery-truck" />
+        </div>
+    </div>
+</div>
+
+ @section Scripts {
+	<script>
+        $(document).ready(function () {
+            setTimeout(function () {
+                $('#loading').fadeOut('slow');
+            }, 2000);
+        });
+	</script>
+}

@@ -1,0 +1,60 @@
+﻿@model IEnumerable<EventViewModel>
+
+@{
+	ViewData["Title"] = "Home Page";
+}
+
+<section id="hero" class="d-flex align-items-center">
+	<div class="container position-relative text-center text-lg-start aos-init aos-animate" data-aos="zoom-in" data-aos-delay="100">
+		<div class="row">
+			<div class="col-lg-8">
+				<h1>Welcome to <span>Flavor Haven</span></h1>
+				<h2>Expertly crafting culinary delights for over 19 years!</h2>
+			</div>
+		</div>
+	</div>
+</section>
+
+<main id="main">
+	<!-- ======= Events Section ======= -->
+	<section id="events" class="events">
+		<div class="container aos-init aos-animate" data-aos="fade-up">
+
+			<div class="section-title">
+				<h2>Events</h2>
+				<p>Organize The Events</p>
+			</div>
+
+			<div class="why-us">
+				<div class="container aos-init aos-animate" data-aos="fade-up">
+					<div>
+						<a asp-area="Administrator" asp-controller="Home" asp-action="Add" class="btn btn-sm btn-light">Add Event</a>
+					</div>
+					<div class="row">
+						@foreach (var item in Model)
+						{
+							<div class="col-lg-4 mt-4 mt-lg-4">
+								<div class="box aos-init aos-animate" data-aos="zoom-in" data-aos-delay="100">
+									<span>@item.StartEvent.ToString("dd.MM.yy HH:mm")</span>
+									<h4>@item.Title</h4>
+									<div class="d-flex justify-content-end mt-2">
+										<a asp-area="Administrator" asp-controller="Home" asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-light me-2">Edit</a>
+										<a asp-area="Administrator" asp-controller="Home" asp-action="Remove" asp-route-id="@item.Id" onclick="return removeEvent('@item.Title')" class="btn btn-sm btn-light">Remove</a>
+									</div>
+								</div>
+							</div>
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</main>
+
+@section Scripts {
+	<script>
+		function removeEvent(title) {
+			return confirm('Are you sure you want to remove ' + title + '?');
+		};
+	</script>
+}
