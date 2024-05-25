@@ -21,7 +21,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddTransient<IEmailSender, EmailSender>();
             services.AddScoped<IChatService, ChatService>();
 
-            var googleCredentialsPath = Environment.GetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS");
+            var googleCredentialsPath = @"C:\Users\furka\Downloads\trusty-banner-424421-j4-3ba83bec3820.json";
             var credentials = GoogleCredential.FromFile(googleCredentialsPath);
             services.AddSingleton(s => StorageClient.Create(credentials));
 

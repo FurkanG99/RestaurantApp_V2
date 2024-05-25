@@ -1,10 +1,13 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using RestaurantApp.Data;
 using RestaurantApp.Extensions;
 using RestaurantApp.Hubs;
 using RestaurantApp.Infrastructure.Data.Models;
+using System;
 
 namespace RestaurantApp
 {
@@ -44,7 +47,6 @@ namespace RestaurantApp
 
             builder.Services.AddApplicationServices();
             builder.Services.AddSignalR();
-
             builder.Services.AddMemoryCache();
 
             builder.Services.ConfigureApplicationCookie(options =>
