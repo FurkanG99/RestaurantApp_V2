@@ -19,7 +19,7 @@ namespace RestaurantApp.Core.Constants
 			public const int PostalCodeMaxLenght = 10;
 			public const int PostalCodeMinLenght = 4;
 
-			public const int EmailMaxLenght = 20;
+			public const int EmailMaxLenght = 50;
 			public const int EmailMinLenght = 4;
 		}
 
